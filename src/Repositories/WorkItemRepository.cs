@@ -76,4 +76,41 @@ public class WorkItemRepository : IWorkItemRepository
             throw;
         }
     }
+
+    public async Task Delete(int id)
+    {
+        try
+        {
+            var existingItem = await _context.WorkItems.FindAsync(id);
+            if (existingItem == null)
+            {
+                throw new KeyNotFoundException($"WorkItem with ID {id} not found.");
+            }
+
+            _context.WorkItems.Remove(existingItem);
+            await _context.SaveChangesAsync();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error deleting work item with ID {id}: {ex.Message}");
+            throw;
+        }
+    }
+
+    public async Task<List<WorkItem>> Search(string query)
+    {
+        try
+        {
+            var results = await _context.WorkItems
+                .Where(w => w.Title.ToLower().Contains(query.ToLower()) || w.Description.ToLower().Contains(query.ToLower()))
+                .ToListAsync();
+            return results;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error searching work items with query '{query}': {ex.Message}");
+            throw;
+        }
+    }
+
 }

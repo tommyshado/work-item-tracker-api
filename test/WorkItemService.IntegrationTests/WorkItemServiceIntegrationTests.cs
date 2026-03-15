@@ -95,6 +95,34 @@ public class WorkItemServiceIntegrationTests : IDisposable
         await Assert.ThrowsAsync<KeyNotFoundException>(() => _workItemService.UpdateWorkItem(ghost));
     }
 
+    [Fact]
+    public async Task DeleteWorkItem_ExistingId_RemovesItem()
+    {
+        var item = new WorkItem { Title = "Task to delete" };
+        _context.WorkItems.Add(item);
+        await _context.SaveChangesAsync();
+
+        await _workItemService.DeleteWorkItem(item.Id);
+
+        var fromDb = await _context.WorkItems.FindAsync(item.Id);
+        Assert.Null(fromDb);
+    }
+
+    [Fact]
+    public async Task SearchWorkItem_ReturnsMatchingItems()
+    {
+        _context.WorkItems.AddRange(
+            new WorkItem { Title = "Fix login bug" },
+            new WorkItem { Title = "Update documentation" },
+            new WorkItem { Title = "Login page redesign" }
+        );
+        await _context.SaveChangesAsync();
+
+        var results = await _workItemService.SearchWorkItem("Login");
+
+        Assert.Equal(2, results.Count);
+    }
+
     public void Dispose()
     {
         _context.Database.CloseConnection();

@@ -78,4 +78,22 @@ public class WorkItemsController : ControllerBase
             return BadRequest(ex.Message);
         }
     }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        try
+        {
+            var item = await _service.GetWorkItem(id);
+            if (item == null)
+                return NotFound();
+
+            await _service.DeleteWorkItem(id);
+            return NoContent();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
 }

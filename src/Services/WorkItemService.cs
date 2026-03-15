@@ -38,4 +38,14 @@ public class WorkItemService : IWorkItemService
     {
         return await _repository.Update(item);
     }
+
+    public async Task DeleteWorkItem(int id)
+    {
+        await _repository.Delete(id);
+    }
+
+    public async Task<List<WorkItem>> SearchWorkItem(string query)
+    {
+        return await _repository.Search(query);
+    }
 }
