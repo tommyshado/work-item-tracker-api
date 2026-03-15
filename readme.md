@@ -1,5 +1,7 @@
 # Work Item Tracker API
 
+[![.NET](https://github.com/tommyshado/work-item-tracker-api/actions/workflows/dotnet.yml/badge.svg)](https://github.com/tommyshado/work-item-tracker-api/actions/workflows/dotnet.yml)
+
 ## Project Description
 
 Work Item Tracker API is a lightweight ASP.NET Core 8 REST API for creating and managing work items.
