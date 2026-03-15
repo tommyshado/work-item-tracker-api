@@ -33,7 +33,7 @@ public class WorkItemServiceIntegrationTests : IDisposable
 
         Assert.NotNull(workItem);
         Assert.Equal("Fix bug", workItem.Title);
-        Assert.Equal("Open", workItem.Status);
+        Assert.Equal(WorkItemStatus.Open, workItem.Status);
     }
 
     [Fact]
@@ -74,17 +74,17 @@ public class WorkItemServiceIntegrationTests : IDisposable
     [Fact]
     public async Task UpdateWorkItem_PersistsChanges()
     {
-        var item = new WorkItem { Title = "Old Title", Status = "Open" };
+        var item = new WorkItem { Title = "Old Title", Status = WorkItemStatus.Open };
         _context.WorkItems.Add(item);
         await _context.SaveChangesAsync();
 
         item.Title = "New Title";
-        item.Status = "In Progress";
+        item.Status = WorkItemStatus.InProgress;
         var result = await _workItemService.UpdateWorkItem(item);
 
         var fromDb = await _context.WorkItems.FindAsync(item.Id);
         Assert.Equal("New Title", fromDb!.Title);
-        Assert.Equal("In Progress", fromDb.Status);
+        Assert.Equal(WorkItemStatus.InProgress, fromDb.Status);
     }
 
     [Fact]

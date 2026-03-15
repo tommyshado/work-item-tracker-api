@@ -26,7 +26,7 @@ public class WorkItemService : IWorkItemService
         {
             Title = dto.Title,
             Description = dto.Description,
-            Status = WorkItemStatus.Open,
+            Status = dto.Status,
             CreatedAt = DateTime.UtcNow,
             UpdatedAt = DateTime.UtcNow
         };

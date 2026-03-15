@@ -1,6 +1,58 @@
-@work_item_tracker_api_HostAddress = http://localhost:5173
+@work_item_tracker_api_HostAddress = http://localhost:5000
 
-GET {{work_item_tracker_api_HostAddress}}/weatherforecast/
+GET {{work_item_tracker_api_HostAddress}}/api/workitems/
 Accept: application/json
+
+###
+
+POST {{work_item_tracker_api_HostAddress}}/api/workitems/
+Content-Type: application/json
+
+{
+  "title": "New Task",
+  "description": "This is a new task created via API."
+}
+
+###
+
+GET {{work_item_tracker_api_HostAddress}}/api/workitems/1
+Accept: application/json
+
+###
+
+PUT {{work_item_tracker_api_HostAddress}}/api/workitems/1
+Content-Type: application/json  
+
+{
+  "id": 1,
+  "title": "Updated Task Title",
+  "description": "Updated description for the task.",
+  "status": "closed"
+}
+
+###
+
+GET {{work_item_tracker_api_HostAddress}}/api/workitems/
+Accept: application/json
+
+
+###
+
+POST {{work_item_tracker_api_HostAddress}}/api/workitems/
+Content-Type: application/json
+
+{
+  "title": "New Task 2",
+  "description": "This is a new task created via API."
+}
+
+###
+
+GET {{work_item_tracker_api_HostAddress}}/api/workitems/search?query=Task
+Accept: application/json
+
+###
+
+DELETE {{work_item_tracker_api_HostAddress}}/api/workitems/1
 
 ###

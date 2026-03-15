@@ -11,4 +11,11 @@ public class AppDbContext : DbContext
     }
 
     public DbSet<WorkItem> WorkItems => Set<WorkItem>();
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<WorkItem>()
+            .Property(w => w.Status)
+            .HasConversion<string>();
+    }
 }
