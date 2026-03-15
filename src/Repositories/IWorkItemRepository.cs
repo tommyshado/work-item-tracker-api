@@ -8,4 +8,5 @@ public interface IWorkItemRepository
     Task<WorkItem> Update(WorkItem item);
     Task Delete(int id);
     Task<List<WorkItem>> Search(string query);
+    Task<List<WorkItem>> GetByStatus(WorkItemStatus status);
 }

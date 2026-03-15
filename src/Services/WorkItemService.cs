@@ -48,4 +48,9 @@ public class WorkItemService : IWorkItemService
     {
         return await _repository.Search(query);
     }
+
+    public async Task<List<WorkItem>> GetWorkItemsByStatus(WorkItemStatus status)
+    {
+        return await _repository.GetByStatus(status);
+    }
 }

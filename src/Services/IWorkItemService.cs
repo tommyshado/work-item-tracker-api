@@ -9,4 +9,5 @@ public interface IWorkItemService
     Task<WorkItem> UpdateWorkItem(WorkItem item);
     Task DeleteWorkItem(int id);
     Task<List<WorkItem>> SearchWorkItem(string query);
+    Task<List<WorkItem>> GetWorkItemsByStatus(WorkItemStatus status);
 }

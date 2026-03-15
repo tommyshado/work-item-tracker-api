@@ -113,4 +113,17 @@ public class WorkItemRepository : IWorkItemRepository
         }
     }
 
+    public async Task<List<WorkItem>> GetByStatus(WorkItemStatus status)
+    {
+        try
+        {
+            return await _context.WorkItems.Where(w => w.Status == status).ToListAsync();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error fetching work items with status '{status}': {ex.Message}");
+            throw;
+        }
+    }
+
 }

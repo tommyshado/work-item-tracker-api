@@ -110,4 +110,18 @@ public class WorkItemsController : ControllerBase
             return BadRequest(ex.Message);
         }
     }
+
+    [HttpGet("status/{status}")]
+    public async Task<IActionResult> GetByStatus(WorkItemStatus status)
+    {
+        try
+        {
+            var items = await _service.GetWorkItemsByStatus(status);
+            return Ok(items);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
 }

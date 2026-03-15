@@ -123,6 +123,21 @@ public class WorkItemServiceIntegrationTests : IDisposable
         Assert.Equal(2, results.Count);
     }
 
+    [Fact]
+    public async Task GetWorkItemsByStatus_ReturnsMatchingItems()
+    {
+        _context.WorkItems.AddRange(
+            new WorkItem { Title = "Task 1", Status = WorkItemStatus.Open },
+            new WorkItem { Title = "Task 2", Status = WorkItemStatus.InProgress },
+            new WorkItem { Title = "Task 3", Status = WorkItemStatus.Open }
+        );
+        await _context.SaveChangesAsync();
+
+        var results = await _workItemService.GetWorkItemsByStatus(WorkItemStatus.Open);
+
+        Assert.Equal(2, results.Count);
+    }
+
     public void Dispose()
     {
         _context.Database.CloseConnection();
