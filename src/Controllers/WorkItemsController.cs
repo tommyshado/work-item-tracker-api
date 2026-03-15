@@ -96,4 +96,18 @@ public class WorkItemsController : ControllerBase
             return BadRequest(ex.Message);
         }
     }
+
+    [HttpGet("search")]
+    public async Task<IActionResult> Search([FromQuery] string query)
+    {
+        try
+        {
+            var items = await _service.SearchWorkItem(query);
+            return Ok(items);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
 }
