@@ -1,0 +1,66 @@
+# Build output
+bin/
+obj/
+out/
+TestResults/
+artifacts/
+
+# User-specific files
+*.user
+*.rsuser
+*.suo
+*.userosscache
+*.sln.docstates
+
+# IDE/editor folders
+.vs/
+.vscode/
+.idea/
+
+# .NET / NuGet
+*.nupkg
+*.snupkg
+*.nuspec
+*.nuget.props
+*.nuget.targets
+project.lock.json
+project.fragment.lock.json
+
+# Logs
+*.log
+logs/
+log/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# ASP.NET Core local config/secrets
+appsettings.Development.json
+appsettings.*.local.json
+secrets.json
+
+# Local databases (SQLite/SQL CE/etc.)
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+*.mdf
+*.ldf
+
+# Coverage / test artifacts
+coverage/
+coverage.*
+*.coverage
+*.coveragexml
+
+# Publish output
+publish/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.swp
+*.swo

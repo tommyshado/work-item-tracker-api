@@ -1,0 +1,41 @@
+using WorkItemTrackerApi.DTOs;
+using WorkItemTrackerApi.Models;
+
+public class WorkItemService : IWorkItemService
+{
+    private readonly IWorkItemRepository _repository;
+
+    public WorkItemService(IWorkItemRepository repository)
+    {
+        _repository = repository;
+    }
+
+    public async Task<List<WorkItem>> GetWorkItems()
+    {
+        return await _repository.GetAll();
+    }
+
+    public async Task<WorkItem?> GetWorkItem(int id)
+    {
+        return await _repository.GetById(id);
+    }
+
+    public async Task<WorkItem> CreateWorkItem(WorkItemDto dto)
+    {
+        var workItem = new WorkItem
+        {
+            Title = dto.Title,
+            Description = dto.Description,
+            Status = WorkItemStatus.Open,
+            CreatedAt = DateTime.UtcNow,
+            UpdatedAt = DateTime.UtcNow
+        };
+
+        return await _repository.Create(workItem);
+    }
+
+    public async Task<WorkItem> UpdateWorkItem(WorkItem item)
+    {
+        return await _repository.Update(item);
+    }
+}
