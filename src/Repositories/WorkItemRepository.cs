@@ -137,7 +137,7 @@ public class WorkItemRepository : IWorkItemRepository
         try
         {
             var now = DateTime.UtcNow;
-            var fromDate = now.AddHours(-timeframe);
+            var fromDate = now.AddMinutes(-timeframe);
             return await _context.WorkItems
                     .Where(w => w.UpdatedAt >= fromDate && w.UpdatedAt <= now)
                     .OrderByDescending(w => w.UpdatedAt)

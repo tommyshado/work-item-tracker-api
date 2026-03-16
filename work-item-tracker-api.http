@@ -61,5 +61,5 @@ GET {{work_item_tracker_api_HostAddress}}/api/workitems/status/open
 Accept: application/json
 
 ###
-GET {{work_item_tracker_api_HostAddress}}/api/workitems/timeframe/10
+GET {{work_item_tracker_api_HostAddress}}/api/workitems/timeframe/60
 Accept: application/json
