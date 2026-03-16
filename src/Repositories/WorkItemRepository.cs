@@ -15,7 +15,9 @@ public class WorkItemRepository : IWorkItemRepository
     {
         try
         {
-            return await _context.WorkItems.ToListAsync();
+            return await _context.WorkItems
+                .OrderByDescending(workItem => workItem.UpdatedAt)
+                .ToListAsync();
         }
         catch (Exception ex)
         {
@@ -103,6 +105,7 @@ public class WorkItemRepository : IWorkItemRepository
         {
             var results = await _context.WorkItems
                 .Where(w => w.Title.ToLower().Contains(query.ToLower()) || w.Description.ToLower().Contains(query.ToLower()))
+                .OrderByDescending(w => w.UpdatedAt)
                 .ToListAsync();
             return results;
         }
@@ -117,11 +120,32 @@ public class WorkItemRepository : IWorkItemRepository
     {
         try
         {
-            return await _context.WorkItems.Where(w => w.Status == status).ToListAsync();
+            return await _context.WorkItems
+                        .Where(w => w.Status == status)
+                        .OrderByDescending(w => w.UpdatedAt)
+                        .ToListAsync();
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Error fetching work items with status '{status}': {ex.Message}");
+            throw;
+        }
+    }
+
+    public async Task<List<WorkItem>> GetWorkItemByTime(int timeframe)
+    {
+        try
+        {
+            var now = DateTime.UtcNow;
+            var fromDate = now.AddHours(-timeframe);
+            return await _context.WorkItems
+                    .Where(w => w.UpdatedAt >= fromDate && w.UpdatedAt <= now)
+                    .OrderByDescending(w => w.UpdatedAt)
+                    .ToListAsync();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error fetching work items by time frame '{timeframe}': {ex.Message}");
             throw;
         }
     }

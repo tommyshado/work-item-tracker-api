@@ -124,4 +124,17 @@ public class WorkItemsController : ControllerBase
             return BadRequest(ex.Message);
         }
     }
+
+    [HttpGet("timeframe/{timeframe}")]
+    public async Task<IActionResult> GetByTimeframe(int timeframe)
+    {
+        try        {
+            var items = await _service.GetWorkItemsByTime(timeframe);
+            return Ok(items);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
 }

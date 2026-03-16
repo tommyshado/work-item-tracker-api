@@ -53,4 +53,9 @@ public class WorkItemService : IWorkItemService
     {
         return await _repository.GetByStatus(status);
     }
+
+    public async Task<List<WorkItem>> GetWorkItemsByTime(int timeframe)
+    {
+        return await _repository.GetWorkItemByTime(timeframe);
+    }
 }

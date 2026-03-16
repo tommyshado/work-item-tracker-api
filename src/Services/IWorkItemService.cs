@@ -10,4 +10,5 @@ public interface IWorkItemService
     Task DeleteWorkItem(int id);
     Task<List<WorkItem>> SearchWorkItem(string query);
     Task<List<WorkItem>> GetWorkItemsByStatus(WorkItemStatus status);
+    Task<List<WorkItem>> GetWorkItemsByTime(int timeframe);
 }

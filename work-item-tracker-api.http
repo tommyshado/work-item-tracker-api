@@ -9,23 +9,23 @@ POST {{work_item_tracker_api_HostAddress}}/api/workitems/
 Content-Type: application/json
 
 {
-  "title": "New Task",
-  "description": "This is a new task created via API."
+  "title": "Navbar issue",
+  "description": "The navbar should be fixed."
 }
 
 ###
 
-GET {{work_item_tracker_api_HostAddress}}/api/workitems/1
+GET {{work_item_tracker_api_HostAddress}}/api/workitems/6
 Accept: application/json
 
 ###
 
-PUT {{work_item_tracker_api_HostAddress}}/api/workitems/1
+PUT {{work_item_tracker_api_HostAddress}}/api/workitems/5
 Content-Type: application/json  
 
 {
-  "id": 1,
-  "title": "Updated Task Title",
+  "id": 5,
+  "title": "Fix login issue",
   "description": "Updated description for the task.",
   "status": "closed"
 }
@@ -56,3 +56,10 @@ Accept: application/json
 DELETE {{work_item_tracker_api_HostAddress}}/api/workitems/1
 
 ###
+
+GET {{work_item_tracker_api_HostAddress}}/api/workitems/status/open
+Accept: application/json
+
+###
+GET {{work_item_tracker_api_HostAddress}}/api/workitems/timeframe/10
+Accept: application/json
