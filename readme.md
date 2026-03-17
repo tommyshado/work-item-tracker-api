@@ -113,3 +113,64 @@ dotnet watch run
 - `src/` - API source code (controllers, services, repositories, models, EF Core DbContext)
 - `Migrations/` - EF Core migrations
 - `test/WorkItemService.IntegrationTests/` - integration tests
+
+## Authentication (JWT)
+
+The API uses JSON Web Tokens (JWT) for authentication. All endpoints except `/api/auth/login` require a valid Bearer token in the `Authorization` header.
+
+### Configuration
+
+A `JWT_SECRET_KEY` must be set. In development, it's provided via `appsettings.Development.json`. For production, set it as an environment variable.
+
+### Login
+
+**POST** `/api/auth/login`
+
+Request body:
+
+```json
+{
+  "username": "your-username",
+  "password": "your-password"
+}
+```
+
+Response body:
+
+```json
+{
+  "token": "<jwt-token>",
+  "username": "your-username",
+  "expiresIn": 3600
+}
+```
+
+### Using the token
+
+Include the token in subsequent requests:
+
+```
+Authorization: Bearer <jwt-token>
+```
+
+Requests without a valid token receive a `401 Unauthorized` response.
+
+### How it works
+
+- `AuthService` generates and validates JWT tokens (HMAC-SHA256, 1-hour expiry).
+- `TokenAuthMiddleware` intercepts all requests (except `/api/auth/login`) and validates the Bearer token.
+- `AuthGuard` wraps validation logic for use in services.
+
+## Set Environment to Development
+
+Source the helper script to set the `ASPNETCORE_ENVIRONMENT` variable before running the API:
+
+```bash
+source ./set-env-to-dev.sh
+```
+
+This sets `ASPNETCORE_ENVIRONMENT=Development`, which enables:
+
+- Developer exception pages
+- Development-specific configuration from `appsettings.Development.json`
+- Swagger UI at `/swagger`
