@@ -1,7 +1,19 @@
 @work_item_tracker_api_HostAddress = http://localhost:5000
 
+
+POST {{work_item_tracker_api_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "Username": "testuser",
+  "Password": "testpassword"
+}
+
+###
+
 GET {{work_item_tracker_api_HostAddress}}/api/workitems/
 Accept: application/json
+Authorization: Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0dXNlciIsImVtYWlsIjoidGVzdHVzZXIiLCJleHAiOjE3NzM3NTgzOTd9.nqYiSAzk97JxkHF_oaXH3HqbzWh9M6MffX-KO4acnfc
 
 ###
 
